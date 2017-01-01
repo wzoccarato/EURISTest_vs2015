@@ -5,7 +5,8 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="3f25ed2f88cf4079a0176c1382127898" Name="Diagram1" >
-        <EntityTypeShape EntityType="LocalDbModel.Prodotto" Width="1.5" PointX="2.875" PointY="0.875" />
+        <EntityTypeShape EntityType="LocalDbModel.Listino" Width="1.5" PointX="3.875" PointY="0.75" />
+        <EntityTypeShape EntityType="LocalDbModel.Prodotto" Width="1.5" PointX="5.875" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

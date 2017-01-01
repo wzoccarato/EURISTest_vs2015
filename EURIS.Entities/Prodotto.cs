@@ -14,8 +14,8 @@ namespace EURIS.Entities
     
     public partial class Prodotto
     {
-        public int Id { get; set; }
-        public string Codice { get; set; }
-        public string Descrizione { get; set; }
+        public int id { get; set; }
+        public string codice { get; set; }
+        public string descrizione { get; set; }
     }
 }
