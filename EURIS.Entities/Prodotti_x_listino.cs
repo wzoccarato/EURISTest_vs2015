@@ -12,17 +12,17 @@ namespace EURIS.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Prodotto
+    public partial class Prodotti_x_listino
     {
-        public Prodotto()
-        {
-            this.Prodotti_x_listino = new HashSet<Prodotti_x_listino>();
-        }
-    
         public int id { get; set; }
-        public string codice { get; set; }
-        public string descrizione { get; set; }
+        public int id_prodotto { get; set; }
+        public int id_listino { get; set; }
+        public System.DateTime insert_date { get; set; }
+        public Nullable<System.DateTime> valid_until { get; set; }
+        public Nullable<System.DateTime> valid_from { get; set; }
+        public string notes { get; set; }
     
-        public virtual ICollection<Prodotti_x_listino> Prodotti_x_listino { get; set; }
+        public virtual Listino Listino { get; set; }
+        public virtual Prodotto Prodotto { get; set; }
     }
 }

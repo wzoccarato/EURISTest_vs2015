@@ -14,9 +14,15 @@ namespace EURIS.Entities
     
     public partial class Listino
     {
+        public Listino()
+        {
+            this.Prodotti_x_listino = new HashSet<Prodotti_x_listino>();
+        }
+    
         public int id { get; set; }
         public string codice { get; set; }
         public string descrizione { get; set; }
-        public int id_prodotto { get; set; }
+    
+        public virtual ICollection<Prodotti_x_listino> Prodotti_x_listino { get; set; }
     }
 }

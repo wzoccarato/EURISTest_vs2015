@@ -69,6 +69,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LocalDbModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Prodotti_x_listino.cs">
+      <DependentUpon>LocalDbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Prodotto.cs">
       <DependentUpon>LocalDbModel.tt</DependentUpon>
     </Compile>
@@ -99,9 +102,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="LocalDbModel.edmx.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

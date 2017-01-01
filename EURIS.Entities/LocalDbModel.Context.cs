@@ -25,7 +25,8 @@ namespace EURIS.Entities
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<Listino> ListinoSet { get; set; }
-        public DbSet<Prodotto> ProdottoSet { get; set; }
+        public DbSet<Listino> Listino { get; set; }
+        public DbSet<Prodotti_x_listino> Prodotti_x_listino { get; set; }
+        public DbSet<Prodotto> Prodotto { get; set; }
     }
 }

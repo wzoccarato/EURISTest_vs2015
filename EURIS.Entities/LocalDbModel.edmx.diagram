@@ -5,8 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="3f25ed2f88cf4079a0176c1382127898" Name="Diagram1" >
-        <EntityTypeShape EntityType="LocalDbModel.Listino" Width="1.5" PointX="3.875" PointY="0.75" />
-        <EntityTypeShape EntityType="LocalDbModel.Prodotto" Width="1.5" PointX="5.875" PointY="0.75" />
+        <EntityTypeShape EntityType="LocalDbModel.Listino" Width="1.5" PointX="0.75" PointY="1.5" />
+        <EntityTypeShape EntityType="LocalDbModel.Prodotti_x_listino" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="LocalDbModel.Prodotto" Width="1.5" PointX="0.75" PointY="5.5" />
+        <AssociationConnector Association="LocalDbModel.FK_Prodotti_x_listino_Listino" />
+        <AssociationConnector Association="LocalDbModel.FK_Prodotti_x_listino_Prodotto" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -16,7 +16,7 @@ namespace EURIS.Service
         {
             List<Prodotto> prodotti = new List<Prodotto>();
             
-            prodotti = (from item in context.ProdottoSet
+            prodotti = (from item in context.Prodotto
                           select item).ToList();
 
             return prodotti;
