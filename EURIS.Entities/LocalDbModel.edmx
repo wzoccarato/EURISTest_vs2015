@@ -4,30 +4,30 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="LocalDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Listino">
-          <Key>
-            <PropertyRef Name="id" />
-            <PropertyRef Name="id_prodotto" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="codice" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="descrizione" Type="nvarchar(max)" />
-          <Property Name="id_prodotto" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Prodotto">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="codice" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="descrizione" Type="nvarchar(max)" />
-        </EntityType>
-        <EntityContainer Name="LocalDbModelStoreContainer">
-          <EntitySet Name="Listino" EntityType="Self.Listino" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Prodotto" EntityType="Self.Prodotto" Schema="dbo" store:Type="Tables" />
-        </EntityContainer>
-      </Schema></edmx:StorageModels>
+    <Schema Namespace="LocalDbModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="LocalDbModelStoreContainer">
+    <EntitySet Name="ListinoSet" EntityType="LocalDbModel.Store.ListinoSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProdottoSet" EntityType="LocalDbModel.Store.ProdottoSet" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="ListinoSet">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="id_prodotto" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="codice" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="descrizione" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="id_prodotto" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProdottoSet">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="codice" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="descrizione" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="LocalDbModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -57,30 +57,29 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="LocalDbModelStoreContainer" CdmEntityContainer="LocalDbEntities" >
-        <EntitySetMapping Name="ListinoSet">
-            <EntityTypeMapping TypeName="LocalDbModel.Listino">
-              <MappingFragment StoreEntitySet="Listino">
-                <ScalarProperty Name="id_prodotto" ColumnName="id_prodotto" />
-                <ScalarProperty Name="descrizione" ColumnName="descrizione" />
-                <ScalarProperty Name="codice" ColumnName="codice" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProdottoSet">
-            <EntityTypeMapping TypeName="LocalDbModel.Prodotto">
-              <MappingFragment StoreEntitySet="Prodotto">
-                <ScalarProperty Name="descrizione" ColumnName="descrizione" />
-                <ScalarProperty Name="codice" ColumnName="codice" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="LocalDbModelStoreContainer" CdmEntityContainer="LocalDbEntities">
+    <EntitySetMapping Name="ListinoSet">
+      <EntityTypeMapping TypeName="IsTypeOf(LocalDbModel.Listino)">
+        <MappingFragment StoreEntitySet="ListinoSet">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="id_prodotto" ColumnName="id_prodotto" />
+          <ScalarProperty Name="codice" ColumnName="codice" />
+          <ScalarProperty Name="descrizione" ColumnName="descrizione" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProdottoSet">
+      <EntityTypeMapping TypeName="IsTypeOf(LocalDbModel.Prodotto)">
+        <MappingFragment StoreEntitySet="ProdottoSet">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="codice" ColumnName="codice" />
+          <ScalarProperty Name="descrizione" ColumnName="descrizione" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
