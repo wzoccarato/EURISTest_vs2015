@@ -22,6 +22,7 @@
       <Schema Namespace="LocalDbModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="LocalDbEntities" p1:LazyLoadingEnabled="true" >
           <EntitySet Name="ProdottoSet" EntityType="LocalDbModel.Prodotto" />
+          <EntitySet Name="ListinoSet" EntityType="LocalDbModel.Listino" />
         </EntityContainer>
         <EntityType Name="Prodotto">
           <Key>
@@ -30,6 +31,15 @@
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Codice" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Descrizione" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Listino">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codice" Type="String" Nullable="false" />
+          <Property Name="Descrizione" Type="String" Nullable="false" />
+          <Property Name="IdProdotto" Type="String" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>

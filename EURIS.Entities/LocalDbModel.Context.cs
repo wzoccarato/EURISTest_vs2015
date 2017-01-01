@@ -26,5 +26,6 @@ namespace EURIS.Entities
         }
     
         public DbSet<Prodotto> ProdottoSet { get; set; }
+        public DbSet<Listino> ListinoSet { get; set; }
     }
 }
