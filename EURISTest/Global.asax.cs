@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using EURISTest.Infrastructure;
 
 namespace EURISTest
 {
@@ -17,6 +18,9 @@ namespace EURISTest
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
+
+            // registra il dependency resolver custom
+            DependencyResolver.SetResolver(new NinjectDependencyResolver());
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

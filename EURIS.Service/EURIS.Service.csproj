@@ -49,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IProductRepository.cs" />
+    <Compile Include="Concrete\EfProductRepository.cs" />
     <Compile Include="ProdottoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
