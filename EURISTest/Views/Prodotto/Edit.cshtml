@@ -1,11 +1,21 @@
-﻿@model EURIS.Entities.Prodotto
+﻿@using System.Diagnostics.Eventing.Reader
+@model EURIS.Entities.Prodotto
 
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Visualizza - Modifica @Model.codice</h2>
+@*<h2>Visualizza - Modifica @Model.codice??""</h2>*@
+
+<h2>Visualizza - Modifica
+    @if (Model.codice != null)
+    {
+        @Model.codice
+    }
+</h2>
+
+
 
 @using (Html.BeginForm())
 {

@@ -50,14 +50,22 @@ namespace EURIS.Service.Concrete
                 Prodotto dbEntry = _context.Prodotto.Find(product.id);
                 if (dbEntry != null)
                 {
-                    dbEntry.codice = product.codice;
+                    dbEntry.codice = product.codice.Trim();
                     dbEntry.descrizione = product.descrizione;
                 }
             }
             _context.SaveChanges();
         }
 
-
+        /// <summary>
+        /// verifica che nel database non esistano prodotti con lo stesso codice del prodotto passato in rgomento
+        /// ls funzione torna con successo in due casi>
+        /// 1. il prodotto passato in argomento esiste gia' all-interno del db, e codice e id corrispondono
+        /// 2. il prodotto passato in argomento contioene un codice che non [ p[resente in alcun altro prodotto presente nel db
+        /// questo metodo e' utilizzato negli update dei prodotti
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
         public bool CodeIsConsistent(Prodotto product)
         {
             var prod =_context.Prodotto.FirstOrDefault(p => p.codice == product.codice);
@@ -70,7 +78,7 @@ namespace EURIS.Service.Concrete
                     // il prodotto e' gia' stato inserito, bisogna verificare con non ce ne sia
                     // gia' un altro con lo stesso codice
                     // ritorna true se id e codice corrispondono, cioe' e' lo stesso prodotto
-                    return product.codice == prod.codice && product.id == prod.id;
+                    return product.codice == prod.codice.Trim() && product.id == prod.id;
                 }
             }
             return true;

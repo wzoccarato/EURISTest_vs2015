@@ -35,9 +35,41 @@ namespace EURISTest.Controllers
             });
         }
 
+        [HttpPost]
+        public ActionResult Index(Prodotto prodotto)
+        {
+            if (Request.Form["BottoneCrea"] != null)
+            {
+                return RedirectToAction("Edit",new {@id = 0});
+            }
+            else if (Request.Form["BottoneDelete"] != null)
+            {
+                if (prodotto != null)
+                {
+                    var result =_ipr.DeleteProduct(prodotto.id);
+                    if (result != null)
+                    {
+                        TempData["message"] = $"{result.codice} è stato rimosso dal database";
+                    }
+                    else
+                    {
+                        TempData["message"] = "Errore nella rimozione del prodotto dal database";
+                    }
+                    return RedirectToAction("Index");
+                }
+                else
+                    throw new NullReferenceException();
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public ViewResult Edit(int id)
         {
-            Prodotto prod = _ipr.Products.FirstOrDefault(p => p.id == id);
+            
+            Prodotto prod = id>0 ? _ipr.Products.FirstOrDefault(p => p.id == id) : new Prodotto();
             return View(prod);
         }
 

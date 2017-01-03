@@ -13,7 +13,5 @@ namespace EURIS.Service.Abstract
         void SaveProduct(Prodotto product);
         Prodotto DeleteProduct(int productId);
         bool CodeIsConsistent(Prodotto product);
-
-
     }
 }
