@@ -12,5 +12,8 @@ namespace EURIS.Service.Abstract
         IQueryable<Prodotto> Products { get; }
         void SaveProduct(Prodotto product);
         Prodotto DeleteProduct(int productId);
+        bool CodeIsConsistent(Prodotto product);
+
+
     }
 }

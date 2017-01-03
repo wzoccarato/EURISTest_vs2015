@@ -1,0 +1,44 @@
+﻿@model EURISTest.Models.CommonViewModel
+@using EURISTest.Infrastructure
+
+@{
+    ViewBag.Title = "Prodotto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @using (Html.BeginForm("Crea"))
+    {
+        <input type="submit" value="Crea nuovo prodotto" />
+    }
+    @*@Html.ActionLink("Create New", "Create")*@
+</p>
+
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Codice</th>
+        <th>Descrizione</th>
+        <th>Azioni</th>
+    </tr>
+
+    @foreach (var item in Model.Proddata.Products)
+    {
+        <tr>
+            <td>@item.id</td>
+            <td>@Html.ActionLink(item.codice,"Edit",new {item.id})</td>
+            <td>@item.descrizione</td>
+            <td>
+                @using (Html.BeginForm("Cancella"))
+                {
+                    @Html.Hidden("id", item.id)
+                    <input type="submit" value="Elimina"/>
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+

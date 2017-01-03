@@ -58,6 +58,25 @@ namespace EURIS.Service.Concrete
         }
 
 
+        public bool CodeIsConsistent(Prodotto product)
+        {
+            var prod =_context.Prodotto.FirstOrDefault(p => p.codice == product.codice);
+            if(prod!= null)     
+            {
+                if(product.id == 0)     // questo proidotto non e' ancora stato inserito nel database
+                    return false;       // esiste gia' un prodotto con questo codice
+                else
+                {
+                    // il prodotto e' gia' stato inserito, bisogna verificare con non ce ne sia
+                    // gia' un altro con lo stesso codice
+                    // ritorna true se id e codice corrispondono, cioe' e' lo stesso prodotto
+                    return product.codice == prod.codice && product.id == prod.id;
+                }
+            }
+            return true;
+        }
+
+
 
 
         #endregion

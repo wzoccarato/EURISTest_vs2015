@@ -15,16 +15,16 @@
                     <p class="site-title">@Html.ActionLink("EURIS", "Index", "Home")</p>
                 </div>
                 <div class="float-right">
-@*                    <section id="login">
-                        @Html.Partial("_LoginPartial")
-                    </section>*@
+                    @*                    <section id="login">
+                            @Html.Partial("_LoginPartial")
+                        </section>*@
                     <nav>
                         <ul id="menu">
                             <li>@Html.ActionLink("Home", "Index", "Home")</li>
                             <li>@Html.ActionLink("Prodotti", "Index", "Prodotto")</li>
                             <li>@Html.ActionLink("Listini", "Index", "Listini")</li>
                             @*<li>@Html.ActionLink("About", "About", "Home")</li>
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
                         </ul>
                     </nav>
                 </div>
@@ -32,9 +32,16 @@
         </header>
         <div id="body">
             @RenderSection("featured", required: false)
+
             <section class="content-wrapper main-content clear-fix">
                 @RenderBody()
             </section>
+            <div>
+                @if (TempData["Message"] != null)
+                {
+                    <div  class="mymessage" >@TempData["message"]</div>
+                }
+            </div>
         </div>
         <footer>
             <div class="content-wrapper">
