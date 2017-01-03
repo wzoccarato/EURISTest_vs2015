@@ -5,20 +5,27 @@ using System.Web;
 using System.Web.Mvc;
 using EURIS.Service;
 using EURIS.Entities;
+using EURIS.Service.Abstract;
 
 namespace EURISTest.Controllers
 {
     public class ProdottoController : Controller
     {
-        //
-        // GET: /Prodotto/
+        private IProductRepository _ipr;
 
+        public ProdottoController(IProductRepository ipr)
+        {
+            _ipr = ipr;
+        }
+
+        
+        
         public ActionResult Index()
         {
-            ProdottoService prod = new ProdottoService();
-            List<Prodotto> prodotti = prod.GetProdotti();
+            //ProdottoService prod = new ProdottoService();
+            //List<Prodotto> prodotti = prod.GetProdotti();
 
-            ViewBag.Prodotti = prodotti;
+            //ViewBag.Prodotti = prodotti;
 
             return View();
         }
