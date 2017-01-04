@@ -25,6 +25,7 @@ namespace EURIS.Service.Concrete
         #endregion
 
         #region implementazione interfaccia IProductRepository
+
         public IQueryable<Prodotto> Products => _context.Prodotto;
 
         public Prodotto DeleteProduct(int productId)
@@ -58,38 +59,39 @@ namespace EURIS.Service.Concrete
         }
 
         /// <summary>
-        /// verifica che nel database non esistano prodotti con lo stesso codice del prodotto passato in rgomento
-        /// ls funzione torna con successo in due casi>
-        /// 1. il prodotto passato in argomento esiste gia' all-interno del db, e codice e id corrispondono
-        /// 2. il prodotto passato in argomento contioene un codice che non [ p[resente in alcun altro prodotto presente nel db
+        /// verifica che nel database non esista gia' un prodotto con lo stesso codice del prodotto passato in argomento,
+        /// che non sia il prodotto stesso.
+        /// la funzione torna con successo in due casi:
+        /// 1. il prodotto passato in argomento esiste gia' all'interno del db, e codice e id corrispondono
+        /// 2. il prodotto passato in argomento contiene un codice che non e' presente in alcun altro prodotto nel db
         /// questo metodo e' utilizzato negli update dei prodotti
+        /// scelgo di farlo cosi', invece che imporre una chiave univoca id-codice nel database
         /// </summary>
-        /// <param name="product"></param>
-        /// <returns></returns>
+        /// <param name="product">l'oggetto Prodotto da verificare</param>
+        /// <returns>true se consistente, false in caso contrario</returns>
         public bool CodeIsConsistent(Prodotto product)
         {
-            var prod =_context.Prodotto.FirstOrDefault(p => p.codice == product.codice);
+            // attenzione che la comparazione e' "case insensitive"
+            var prod =_context.Prodotto.FirstOrDefault(p => p.codice == product.codice.Trim());
             if(prod!= null)     
             {
-                if(product.id == 0)     // questo proidotto non e' ancora stato inserito nel database
+                if(product.id == 0)     // questo prodotto non e' ancora stato inserito nel database
                     return false;       // esiste gia' un prodotto con questo codice
                 else
                 {
                     // il prodotto e' gia' stato inserito, bisogna verificare con non ce ne sia
                     // gia' un altro con lo stesso codice
                     // ritorna true se id e codice corrispondono, cioe' e' lo stesso prodotto
-                    return product.codice == prod.codice.Trim() && product.id == prod.id;
+                    return product.id == prod.id;
                 }
             }
             return true;
         }
 
-
-
-
         #endregion
 
         #region implementazione interfaccia IDispose 
+
         public void Dispose()
         {
             Dispose(true);

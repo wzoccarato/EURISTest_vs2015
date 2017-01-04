@@ -1,12 +1,12 @@
-﻿@using System.Diagnostics.Eventing.Reader
-@model EURIS.Entities.Prodotto
+﻿@model EURIS.Entities.Listino
 
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Visualizza - Modifica
+<h2>
+    Visualizza - Modifica
     @if (Model.codice != null)
     {
         @Model.codice
@@ -22,7 +22,7 @@
             <td>Id</td>
         </tr>
         <tr>
-            <td>@Html.TextBoxFor(m => m.id, new {@readonly = "readonly"})</td>
+            <td>@Html.TextBoxFor(m => m.id, new { @readonly = "readonly" })</td>
         </tr>
         <tr>
             <td>Codice</td>
@@ -37,6 +37,6 @@
             <td>@Html.TextBoxFor(m => m.descrizione)</td>
         </tr>
     </Table>
-    <input type="submit" name ="BottoneSalva" value="Salva"/>
-    <input type="submit" name ="BottoneAnnulla" value="Annulla" />
+    <input type="submit" name="BottoneSalva" value="Salva" />
+    <input type="submit" name="BottoneAnnulla" value="Annulla" />
 }

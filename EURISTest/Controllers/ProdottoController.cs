@@ -7,7 +7,6 @@ using EURIS.Service;
 using EURIS.Entities;
 using EURIS.Service.Abstract;
 using EURISTest.Models;
-using Ninject.Parameters;
 
 namespace EURISTest.Controllers
 {
@@ -80,6 +79,8 @@ namespace EURISTest.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    // innanzitutto verifica che i dati inseriti dall'utente non contrastino
+                    // con altri records gia' presenti nel database
                     if (_ipr.CodeIsConsistent(prodotto))
                     {
                         _ipr.SaveProduct(prodotto);
@@ -88,7 +89,7 @@ namespace EURISTest.Controllers
                     }
                     else
                     {
-                        TempData["message"] = $"Esiste già un prodotto con il codice {prodotto.codice}. il prodotto non è stato salvato";
+                        TempData["message"] = $"Esiste già un prodotto con il codice {prodotto.codice} a meno di maiuscole/minuscole. il prodotto non è stato salvato";
                         return View(prodotto);
                     }
                 }

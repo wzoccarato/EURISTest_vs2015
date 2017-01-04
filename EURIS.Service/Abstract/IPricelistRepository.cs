@@ -11,7 +11,7 @@ namespace EURIS.Service.Abstract
     {
         IQueryable<Listino> Pricelists { get; }
         void SavePriceList(Listino pricelist);
-        Prodotto DeletePricelist(int Id);
+        Listino DeletePricelist(int picelistId);
         bool CodeIsConsistent(Listino pricelist);
     }
 }

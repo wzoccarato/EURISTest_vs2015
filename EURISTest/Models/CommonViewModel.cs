@@ -9,5 +9,6 @@ namespace EURISTest.Models
     public class CommonViewModel
     {
         public IProductRepository Proddata;
+        public IPricelistRepository Pricelistdata;
     }
 }

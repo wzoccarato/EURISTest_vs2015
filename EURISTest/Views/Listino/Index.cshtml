@@ -1,9 +1,7 @@
 ﻿@model EURISTest.Models.CommonViewModel
-@using System.EnterpriseServices.Internal
-@using EURISTest.Infrastructure
 
 @{
-    ViewBag.Title = "Prodotto";
+    ViewBag.Title = "Listino";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -12,14 +10,13 @@
 <p>
     @using (Html.BeginForm("Crea"))
     {
-        <input type="submit" name="BottoneCrea" value="Crea nuovo prodotto"/>
+        <input type="submit" name="BottoneCrea" value="Crea nuovo listino" />
     }
-    @*@Html.ActionLink("Create New", "Create")*@
 </p>
 
 <table>
 
-    @if (Model.Proddata.Products.Any())
+    @if (Model.Pricelistdata.Pricelists.Any())
     {
         <tr>
             <th>Id</th>
@@ -28,7 +25,7 @@
             <th>Azioni</th>
         </tr>
 
-        foreach (var item in Model.Proddata.Products)
+        foreach (var item in Model.Pricelistdata.Pricelists)
         {
             <tr>
                 <td>@item.id</td>
@@ -44,5 +41,5 @@
             </tr>
         }
     }
-</table>
 
+</table>
