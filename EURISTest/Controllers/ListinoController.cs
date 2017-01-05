@@ -67,7 +67,7 @@ namespace EURISTest.Controllers
             }
             else if (Request.Form["BottoneManage"] != null)
             {
-                return RedirectToAction("Manage");
+                return RedirectToAction("Manage", new {@id = pl.id});
             }
             else
             {
@@ -119,8 +119,9 @@ namespace EURISTest.Controllers
             }
         }
 
-        public ActionResult Manage()
+        public ActionResult Manage(int id)
         {
+            ViewBag.Listino = id;
             return View(new CommonViewModel
             {
                 Pricelistdata = _iplr,

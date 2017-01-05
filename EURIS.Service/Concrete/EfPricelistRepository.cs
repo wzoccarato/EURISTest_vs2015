@@ -45,9 +45,9 @@ namespace EURIS.Service.Concrete
             _context.SaveChanges();
         }
 
-        public Listino  DeletePricelist(int pricelistId)
+        public Listino  DeletePricelist(int pricelistid)
         {
-            Listino dbEntry = _context.Listino.Find(pricelistId);
+            Listino dbEntry = _context.Listino.Find(pricelistid);
             if (dbEntry != null)
             {
                 _context.Listino.Remove(dbEntry);
@@ -85,6 +85,49 @@ namespace EURIS.Service.Concrete
                 }
             }
             return true;
+        }
+
+        /// <summary>
+        /// Ritorna il codice del listino il cui id e' passato in argomento
+        /// Ritorna stringa vuota se listino non trovato, o descrizione e' null
+        /// </summary>
+        /// <param name="pricelistid"></param>
+        /// <returns></returns>
+        public string GetCodice(int pricelistid)
+        {
+            Listino ls = _context.Listino.First(l => l.id == pricelistid);
+            if (ls != null)
+            {
+                return ls.codice ?? string.Empty;
+            }
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// Ritorna la descrizione del listino il cui id e' passato in argomenteo
+        /// Ritorna stringa vuota se listino non trovato, o descrizione e' null
+        /// </summary>
+        /// <param name="pricelistid"></param>
+        /// <returns></returns>
+        public string GetDescrizione(int pricelistid)
+        {
+            Listino ls = _context.Listino.First(l => l.id == pricelistid);
+            if (ls != null)
+            {
+                return ls.descrizione ?? string.Empty;
+            }
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// ritorna il listino il cui id e' passato in argomento
+        /// se non trovato torna null
+        /// </summary>
+        /// <param name="pricelistid"></param>
+        /// <returns></returns>
+        public Listino GetPricelist(int pricelistid)
+        {
+            return _context.Listino.First(l => l.id == pricelistid);
         }
 
         #endregion

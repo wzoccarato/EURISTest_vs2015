@@ -88,6 +88,49 @@ namespace EURIS.Service.Concrete
             return true;
         }
 
+        /// <summary>
+        /// Ritorna il codice del prodotto il cui id e' passato in argomento
+        /// Ritorna stringa vuota se listino non trovato, o descrizione e' null
+        /// </summary>
+        /// <param name="productid"></param>
+        /// <returns></returns>
+        public string GetCodice(int productid)
+        {
+            Prodotto pr = _context.Prodotto.First(p => p.id == productid);
+            if (pr != null)
+            {
+                return pr.codice ?? string.Empty;
+            }
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// Ritorna la descrizione del prodotto il cui id e' passato in argomenteo
+        /// Ritorna stringa vuota se listino non trovato, o descrizione e' null
+        /// </summary>
+        /// <param name="productid"></param>
+        /// <returns></returns>
+        public string GetDescrizione(int productid)
+        {
+            Prodotto pr = _context.Prodotto.First(p => p.id == productid);
+            if (pr != null)
+            {
+                return pr.descrizione ?? string.Empty;
+            }
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// ritorna il prodotto il cui id e' passato in argomento
+        /// se non trovato torna null
+        /// </summary>
+        /// <param name="productid"></param>
+        /// <returns></returns>
+        public Prodotto GetProduct(int productid)
+        {
+            return _context.Prodotto.First(l => l.id == productid);
+        }
+
         #endregion
 
         #region implementazione interfaccia IDispose 

@@ -10,8 +10,12 @@ namespace EURIS.Service.Abstract
     public interface IPricelistRepository
     {
         IQueryable<Listino> Pricelists { get; }
+        Listino GetPricelist(int pricelistid);
         void SavePriceList(Listino pricelist);
-        Listino DeletePricelist(int picelistId);
+        Listino DeletePricelist(int pricelistid);
         bool CodeIsConsistent(Listino pricelist);
+        string GetCodice(int pricelistid);
+        string GetDescrizione(int pricelistid);
+
     }
 }

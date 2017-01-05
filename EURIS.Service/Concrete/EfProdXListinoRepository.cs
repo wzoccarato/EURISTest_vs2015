@@ -25,13 +25,7 @@ namespace EURIS.Service.Concrete
 
         #region implementazione interfaccia IProdXListinoRepository
 
-        public IQueryable<Prodotti_x_listino> ProdXListino
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public IQueryable<Prodotti_x_listino> ProdXListino => _context.Prodotti_x_listino;
 
         public Prodotti_x_listino Delete(int id)
         {

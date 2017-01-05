@@ -1,8 +1,44 @@
 ﻿@model EURISTest.Models.CommonViewModel
 
 @{
-    ViewBag.Title = "Manage";
+    ViewBag.Title = "Gestine Listino";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Manage</h2>
+@*<h2>@ViewBag.Title @ViewBag.Listino</h2>*@
+
+<h2>@ViewBag.Title @Model.Pricelistdata.GetCodice(ViewBag.Listino)</h2>
+
+
+<div style="text-align: right; float: left; width: 45%; margin-top: 50px">
+    <div class="title1">Prodotti disponibili</div>
+    <div>
+        @Html.ListBox("sdtype", new MultiSelectList(Model.Proddata.Products.Select(g => g.codice).ToList()), new {@class = "list"})
+    </div>
+</div>
+
+
+<div style="text-align: center; float: left; width: 10%; margin-top: 170px">
+    <div>
+        @*@using (Html.BeginForm("Add"))
+        {*@
+            <input type="button" id="Add" name="AddProduct" value="&gt;" class="button1"/>
+        @*}*@
+    </div>
+    <div>
+        @*@using (Html.BeginForm("Remove"))
+        {*@
+            <input type="button" id="Remove" name="RemoveProduct" value="&lt;" class="button1" />
+        @*}*@
+    </div>
+</div>
+
+<div style="text-align:left; float:right; width:45%; margin-top:50px">
+    <div class="title2">Prodotti del listino</div>
+    <div>
+        @{
+            int ll = ViewBag.Listino;
+            Html.ListBox("salesdoc", new MultiSelectList(Model.Prodxlistinodata.ProdXListino.Where(pxl => pxl.id_listino == ll).Select(g => g.Listino.codice).ToList()), new { @class = "list-values" });
+        }
+    </div>
+</div>

@@ -38,6 +38,10 @@ namespace EURISTest
                         "~/Content/themes/base/jquery.ui.datepicker.css",
                         "~/Content/themes/base/jquery.ui.progressbar.css",
                         "~/Content/themes/base/jquery.ui.theme.css"));
+
+            // aggiunge il javascript custom
+            bundles.Add(new ScriptBundle("~/bundles/EURISTest").Include(
+               "~/Scripts/EURISTest.js"));
         }
     }
 }

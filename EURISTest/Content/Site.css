@@ -126,7 +126,8 @@ footer {
     height: 100px;
 }
 
-/* custom */
+/* ------------------ custom EURISTest ------------------ */
+
 .mymessage {
     text-align: center;
     background: lightblue;
@@ -136,6 +137,63 @@ footer {
     font-style: normal;
     font-weight: bold;
 }
+
+.item{
+    float:left;
+    height:10px;
+}
+
+.value{
+    padding-left:20px;
+    clear:left;
+    display:inline-block;
+    height:10px;
+}
+
+.list{
+    height:300px;
+    width:100px;
+    padding:10px;
+    border: 3px solid black; 
+}
+
+.list-values{
+    height:300px;
+    width:250px;
+    padding:10px;
+    margin:0 0 0 10px;
+    border: 3px solid black; 
+}
+
+.list-enabled{
+    color:red;
+}
+
+.list-disabled{
+    color:grey;
+}
+
+
+.title1{
+    padding:0 25px 10px 0;
+    text-align:right;
+    font-weight:700;
+}
+
+.title2{
+    padding:0 0 10px 60px;
+    text-align:left;
+    font-weight:700;
+}
+
+.button1 {
+    
+}
+
+.button1:hover {
+    background-color: gray;
+}
+/* ------------------------------------------------------ */
 
 /* site title
 ----------------------------------------------------------*/
