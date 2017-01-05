@@ -44,6 +44,7 @@ namespace EURISTest.Infrastructure
             // aggiungere qui tutti i binding
             _kernel.Bind<IProductRepository>().To<EfProductRepository>();
             _kernel.Bind<IPricelistRepository>().To<EfPricelistRepository>();
+            _kernel.Bind<IProdXListinoRepository>().To<EfProdXListinoRepository>();
         }
 
         #endregion

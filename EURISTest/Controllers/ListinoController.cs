@@ -15,12 +15,17 @@ namespace EURISTest.Controllers
         //
         // GET: /Listino/
         private IPricelistRepository _iplr;
+        private IProductRepository _ipr;
+        private IProdXListinoRepository _ipxlr;
 
 
-        public ListinoController(IPricelistRepository iplr)
+        public ListinoController(IPricelistRepository iplr, IProductRepository ipr, IProdXListinoRepository ipxlr)
         {
             _iplr = iplr;
+            _ipr = ipr;
+            _ipxlr = ipxlr;
         }
+
 
         public ActionResult Index()
         {
@@ -59,6 +64,10 @@ namespace EURISTest.Controllers
                 }
                 else
                     throw new NullReferenceException();
+            }
+            else if (Request.Form["BottoneManage"] != null)
+            {
+                return RedirectToAction("Manage");
             }
             else
             {
@@ -110,5 +119,14 @@ namespace EURISTest.Controllers
             }
         }
 
+        public ActionResult Manage()
+        {
+            return View(new CommonViewModel
+            {
+                Pricelistdata = _iplr,
+                Proddata = _ipr,
+                Prodxlistinodata = _ipxlr
+            });
+        }
     }
 }

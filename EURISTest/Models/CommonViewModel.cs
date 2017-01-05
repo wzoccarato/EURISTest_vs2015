@@ -10,5 +10,6 @@ namespace EURISTest.Models
     {
         public IProductRepository Proddata;
         public IPricelistRepository Pricelistdata;
+        public IProdXListinoRepository Prodxlistinodata;
     }
 }

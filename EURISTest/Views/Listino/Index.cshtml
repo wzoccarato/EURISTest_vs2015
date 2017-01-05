@@ -32,10 +32,17 @@
                 <td>@Html.ActionLink(item.codice, "Edit", new { item.id })</td>
                 <td>@item.descrizione</td>
                 <td>
-                    @using (Html.BeginForm("Cancella"))
+                    @using (Html.BeginForm("Delete"))
                     {
                         @Html.Hidden("id", item.id)
-                        <input type="submit" name="BottoneDelete" value="Elimina" />
+                        <input type="submit" name="BottoneDelete" value="Elimina"/>
+                    }
+                </td>
+                <td>
+                    @using (Html.BeginForm("Gestisci"))
+                    {
+                        @Html.Hidden("id", item.id)
+                        <input type="submit" name="BottoneManage" value="Gestisci" />
                     }
                 </td>
             </tr>

@@ -51,8 +51,10 @@
   <ItemGroup>
     <Compile Include="Abstract\IPricelistRepository.cs" />
     <Compile Include="Abstract\IProductRepository.cs" />
+    <Compile Include="Abstract\IProdXListinoRepository.cs" />
     <Compile Include="Concrete\EfPricelistRepository.cs" />
     <Compile Include="Concrete\EfProductRepository.cs" />
+    <Compile Include="Concrete\EfProdXListinoRepository.cs" />
     <Compile Include="ProdottoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
