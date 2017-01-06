@@ -13,7 +13,10 @@
 <div style="text-align: right; float: left; width: 45%; margin-top: 50px">
     <div class="title1">Prodotti disponibili</div>
     <div>
-        @Html.ListBox("sdtype", new MultiSelectList(Model.Proddata.Products.Select(g => g.codice).ToList()), new {@class = "list"})
+        <div  style="display: none">
+            @Html.ListBox("lbprodid", new MultiSelectList(Model.Proddata.Products.Select(g => g.id).ToList()))           
+        </div>
+        @Html.ListBox("lbproducts", new MultiSelectList(Model.Proddata.Products.Select(g => g.codice).ToList()), new {@class = "list"})
     </div>
 </div>
 
@@ -36,9 +39,17 @@
 <div style="text-align:left; float:right; width:45%; margin-top:50px">
     <div class="title2">Prodotti del listino</div>
     <div>
-        @{
-            int ll = ViewBag.Listino;
-            Html.ListBox("salesdoc", new MultiSelectList(Model.Prodxlistinodata.ProdXListino.Where(pxl => pxl.id_listino == ll).Select(g => g.Listino.codice).ToList()), new { @class = "list-values" });
-        }
+        <div style="display: none">
+            @*// mantienbe due liste parallele, contenenti rispettivamente gli id di prodotto, e i codici di prodotto relativi al listino specifico
+            // la prirma lista e' hidden*@
+            @{int ll = ViewBag.Listino;}
+            @Html.ListBox("lbprodplid", new MultiSelectList(Model.Prodxlistinodata.ProdXListino.Where(pxl => pxl.id_listino == ll).Select(g => g.id_prodotto).ToList()))
+            @*@Html.ListBox("lbprodplid", new MultiSelectList(Model.Proddata.Products.Select(g => g.id).ToList()))*@
+        </div >
+        <div>
+            @*//int ll = ViewBag.Listino;*@
+            @Html.ListBox("lbprodpl", new MultiSelectList(Model.Prodxlistinodata.ProdXListino.Where(pxl => pxl.id_listino == ll).Select(g => g.Prodotto.codice).ToList()), new { @class = "list-values" })
+            @*@Html.ListBox("lbprodpl", new MultiSelectList(Model.Proddata.Products.Select(g => g.codice).ToList()), new {@class = "list"})*@
+        </div>
     </div>
 </div>
