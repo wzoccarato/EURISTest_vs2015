@@ -9,7 +9,7 @@
 
 <h2>@ViewBag.Title @Model.Pricelistdata.GetCodice(ViewBag.Listino)</h2>
 
-
+<!-- Listbox relativo ai prodotti -->
 <div style="text-align: right; float: left; width: 45%; margin-top: 50px">
     <div class="title1">Prodotti disponibili</div>
     <div>
@@ -20,7 +20,7 @@
     </div>
 </div>
 
-
+<!-- Bottoni Add e Remove -->
 <div style="text-align: center; float: left; width: 10%; margin-top: 170px">
     <div>
         @*@using (Html.BeginForm("Add"))
@@ -36,7 +36,8 @@
     </div>
 </div>
 
-<div style="text-align:left; float:right; width:45%; margin-top:50px">
+<!-- Listbox relativo al listino -->
+<div style="text-align: left; float: right; width: 45%; margin-top: 50px">
     <div class="title2">Prodotti del listino</div>
     <div>
         <div style="display: none">
@@ -48,8 +49,15 @@
         </div >
         <div>
             @*//int ll = ViewBag.Listino;*@
-            @Html.ListBox("lbprodpl", new MultiSelectList(Model.Prodxlistinodata.ProdXListino.Where(pxl => pxl.id_listino == ll).Select(g => g.Prodotto.codice).ToList()), new { @class = "list-values" })
+            @Html.ListBox("lbprodpl", new MultiSelectList(Model.Prodxlistinodata.ProdXListino.Where(pxl => pxl.id_listino == ll).Select(g => g.Prodotto.codice).ToList()), new {@class = "list-values"})
             @*@Html.ListBox("lbprodpl", new MultiSelectList(Model.Proddata.Products.Select(g => g.codice).ToList()), new {@class = "list"})*@
         </div>
     </div>
 </div>
+
+@using (Html.BeginForm("Save"))
+{
+    <div style="float: left; margin-top: 150px; width: 200px">
+        <input type="submit" id="BtnSave" name="SavePricelist" value="Salva" />
+    </div>
+}

@@ -43,37 +43,44 @@ $("#Add").click(function() {
     // e poi aggiungerli alla listbox contenente i prodotti per listino.
     var selcode = [];       // array contenente i codici prodotti selezionati dalla listbox
     var selid = [];         // array contnente gli id prodotti relativi ai codici selezionati
-    //var s = document.getElementById("lbprodid");        // listbox degli id
-    //var s1 = document.getElementById("lbproducts");     // listbox dei codici
+    var s = document.getElementById("lbprodid");        // listbox degli id
+    var s1 = document.getElementById("lbproducts");     // listbox dei codici
 
-    var s = $("#lbprodid");        // listbox degli id
-    var s1 =$("#lbproducts");     // listbox dei codici
+    //var s = $("#lbprodid");        // listbox degli id
+    ///var s1 =$("#lbproducts");     // listbox dei codici
 
-    //var s = $('#lbproducts');
     var s2 = document.getElementById("lbprodplid");     // listbox degli id relativi ai prodotti contenuti nel listino (hidden) 
     var s3 = document.getElementById("lbprodpl");       // listbox dei codici relativi ai prodotti del listino
 
 
-    var numel = $("#lbproducts option").length;
-    for (var i = 0; i < numel; i++) {
-        if ($("#lbproducts option")[i].selected) {
-            selcode.push(s1.options[i].text);
-            //selid.push(s.options[i].text);
-        }
-    }
+    //var numel = $("#lbproducts option").length;
+    //for (var i = 0; i < numel; i++) {
+    //    if ($("#lbproducts option")[i].selected) {
+    //        selcode.push(s1.options[i].text);
+    //        //selid.push(s.options[i].text);
+    //    }
+    //}
 
-    //var numel = s1.options.length;
-    for (var i = 0; i < numel; i++) {
+    // in selcode e in selid soltanto i codici e i relativi id selezionati
+    var numel = s1.options.length;
+    var i;
+    for (i = 0; i < numel; i++) {
         if (s1.options[i].selected) {
             selcode.push(s1.options[i].text);
             selid.push(s.options[i].text);
         }
     }
-    for (var i = 0; i < selid.length; i++) {
+
+    // aggiunge i prodotti al listino, toglie dalla lista dei prodotti disponibili
+    for (i = 0; i < selid.length; i++) {
         var option = document.createElement("option");
+        var option1 = document.createElement("option");
         option.text = selcode[i];
         s3.add(option);
-        //s2.add(selid[i]);
+        option1.Text = selid[i];
+        s2.add(option1);
+        s1.remove(option.text);
+        s.remove(option1.text);
     }
 });
 

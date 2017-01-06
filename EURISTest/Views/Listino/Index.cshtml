@@ -10,7 +10,7 @@
 <p>
     @using (Html.BeginForm("Crea"))
     {
-        <input type="submit" name="BottoneCrea" value="Crea nuovo listino" />
+        <input type="submit" name="BtnCrea" value="Crea nuovo listino" />
     }
 </p>
 
@@ -35,14 +35,14 @@
                     @using (Html.BeginForm("Delete"))
                     {
                         @Html.Hidden("id", item.id)
-                        <input type="submit" name="BottoneDelete" value="Elimina"/>
+                        <input type="submit" name="BtnDelete" value="Elimina"/>
                     }
                 </td>
                 <td>
                     @using (Html.BeginForm("Gestisci"))
                     {
                         @Html.Hidden("id", item.id)
-                        <input type="submit" name="BottoneManage" value="Gestisci" />
+                        <input type="submit" name="BtnManage" value="Gestisci" />
                     }
                 </td>
             </tr>

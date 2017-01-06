@@ -37,11 +37,11 @@ namespace EURISTest.Controllers
         [HttpPost]
         public ActionResult Index(Prodotto prodotto)
         {
-            if (Request.Form["BottoneCrea"] != null)
+            if (Request.Form["BtnCrea"] != null)
             {
                 return RedirectToAction("Edit",new {@id = 0});
             }
-            else if (Request.Form["BottoneDelete"] != null)
+            else if (Request.Form["BtnDelete"] != null)
             {
                 if (prodotto != null)
                 {
@@ -75,7 +75,7 @@ namespace EURISTest.Controllers
         [HttpPost]
         public ActionResult Edit(Prodotto prodotto)
         {
-            if (Request.Form["BottoneSalva"] != null)
+            if (Request.Form["BtnSalva"] != null)
             {
                 if (ModelState.IsValid)
                 {
@@ -99,7 +99,7 @@ namespace EURISTest.Controllers
                     return View(prodotto);
                 }
             }
-            else if (Request.Form["BottoneAnnulla"] != null)
+            else if (Request.Form["BtnAnnulla"] != null)
             {
                 return RedirectToAction("Index");
             }

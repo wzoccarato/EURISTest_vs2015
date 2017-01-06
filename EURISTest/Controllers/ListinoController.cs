@@ -43,11 +43,11 @@ namespace EURISTest.Controllers
         [HttpPost]
         public ActionResult Index(Listino pl)
         {
-            if (Request.Form["BottoneCrea"] != null)
+            if (Request.Form["BtnCrea"] != null)
             {
                 return RedirectToAction("Edit", new { @id = 0 });
             }
-            else if (Request.Form["BottoneDelete"] != null)
+            else if (Request.Form["BtnDelete"] != null)
             {
                 if (pl != null)
                 {
@@ -65,7 +65,7 @@ namespace EURISTest.Controllers
                 else
                     throw new NullReferenceException();
             }
-            else if (Request.Form["BottoneManage"] != null)
+            else if (Request.Form["BtnManage"] != null)
             {
                 return RedirectToAction("Manage", new {@id = pl.id});
             }
@@ -85,7 +85,7 @@ namespace EURISTest.Controllers
         [HttpPost]
         public ActionResult Edit(Listino pl)
         {
-            if (Request.Form["BottoneSalva"] != null)
+            if (Request.Form["BtnSalva"] != null)
             {
                 if (ModelState.IsValid)
                 {
@@ -109,7 +109,7 @@ namespace EURISTest.Controllers
                     return View(pl);
                 }
             }
-            else if (Request.Form["BottoneAnnulla"] != null)
+            else if (Request.Form["BtnAnnulla"] != null)
             {
                 return RedirectToAction("Index");
             }
