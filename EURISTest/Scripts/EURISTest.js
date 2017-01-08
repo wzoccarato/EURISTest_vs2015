@@ -42,14 +42,14 @@ $("#BtnAdd").click(function() {
     // deve leggere gli elementi selezionati della listbox dei prodotti
     // e poi muoverli nella listbox contenente i prodotti per listino.
     var selcode = [];       // array contenente i codici prodotti selezionati dalla listbox
-    //var selid = [];         // array contnente gli id prodotti relativi ai codici selezionati
-    //var s = document.getElementById("lbprodid");        // listbox degli id
+    var selid = [];         // array contnente gli id prodotti relativi ai codici selezionati
+    var s = document.getElementById("lbprodid");        // listbox degli id
     var s1 = document.getElementById("lbproducts");     // listbox dei codici
 
     //var s = $("#lbprodid");        // listbox degli id
     ///var s1 =$("#lbproducts");     // listbox dei codici
 
-    //var s2 = document.getElementById("lbprodplid");     // listbox degli id relativi ai prodotti contenuti nel listino (hidden) 
+    var s2 = document.getElementById("lbprodplid");     // listbox degli id relativi ai prodotti contenuti nel listino (hidden) 
     var s3 = document.getElementById("lbprodpl");       // listbox dei codici relativi ai prodotti del listino
 
 
@@ -67,31 +67,85 @@ $("#BtnAdd").click(function() {
     for (i = 0; i < numel; i++) {
         if (s1.options[i].selected) {
             selcode.push(s1.options[i].text);
-            //selid.push(s.options[i].text);
+            selid.push(s.options[i].text);
         }
     }
 
     // aggiunge i prodotti al listino, toglie dalla lista dei prodotti disponibili
-    //for (i = 0; i < selid.length; i++) {
-    for (i = 0; i < selcode.length; i++) {
+    for (i = 0; i < selid.length; i++) {
         var option = document.createElement("option");
-        //var option1 = document.createElement("option");
+        var option1 = document.createElement("option");
+
+        // aggliunge gli elementi ai tag destinazione
         option.text = selcode[i];
         s3.add(option);
-        //option1.text = selid[i];
-        //s2.add(option1);
-        s1.remove(option.text);
-        //s.remove(option1.text);
-        var i1 = s1.options.length;
-        //var i2 = s.options.length;
+        option1.text = selid[i];
+        s2.add(option1);
+
+        // rinuove gli elementi dai tag sorgente
+        if((index = indexMatchingText(s1, option.text))>=0)
+            s1.remove(index);
+        if((index = indexMatchingText(s, option1.text))>=0) {
+            s.remove(index);
+        }
     }
 });
 
 
-
 $("#BtnRemove").click(function () {
+    // inverso di BtnAdd
     // deve leggere gli elementi selezionati della listbox  contenente i prodotti per il listino
     // e poi muoverli nelle listbox contenente i prodotti.
+    // deve leggere gli elementi selezionati della listbox dei prodotti
+    // e poi muoverli nella listbox contenente i prodotti per listino.
+    var selcode = [];       // array contenente i codici prodotti selezionati dalla listbox
+    var selid = [];         // array contnente gli id prodotti relativi ai codici selezionati
+    var s = document.getElementById("lbprodid");        // listbox degli id
+    var s1 = document.getElementById("lbproducts");     // listbox dei codici
+
+    //var s = $("#lbprodid");        // listbox degli id
+    ///var s1 =$("#lbproducts");     // listbox dei codici
+
+    var s2 = document.getElementById("lbprodplid");     // listbox degli id relativi ai prodotti contenuti nel listino (hidden) 
+    var s3 = document.getElementById("lbprodpl");       // listbox dei codici relativi ai prodotti del listino
+
+
+    //var numel = $("#lbproducts option").length;
+    //for (var i = 0; i < numel; i++) {
+    //    if ($("#lbproducts option")[i].selected) {
+    //        selcode.push(s1.options[i].text);
+    //        //selid.push(s.options[i].text);
+    //    }
+    //}
+
+    // in selcode e in selid soltanto i codici e i relativi id selezionati
+    var numel = s3.options.length;
+    var i;
+    for (i = 0; i < numel; i++) {
+        if (s3.options[i].selected) {
+            selcode.push(s3.options[i].text);
+            selid.push(s2.options[i].text);
+        }
+    }
+
+    // aggiunge i prodotti al listino, toglie dalla lista dei prodotti disponibili
+    for (i = 0; i < selid.length; i++) {
+        var option = document.createElement("option");
+        var option1 = document.createElement("option");
+
+        // aggliunge gli elementi ai tag destinazione
+        option.text = selcode[i];
+        s1.add(option);
+        option1.text = selid[i];
+        s.add(option1);
+
+        // rinuove gli elementi dai tag sorgente
+        if ((index = indexMatchingText(s3, option.text)) >= 0)
+            s3.remove(index);
+        if ((index = indexMatchingText(s2, option1.text)) >= 0) {
+            s2.remove(index);
+        }
+    }
 });
 
 
@@ -155,3 +209,14 @@ function SetupBaseRoute(partialpath) {
         alert(e.message);
     }
 }
+
+// trova il testo all'interno dell'elemento, e ne restituisce l'indice
+function indexMatchingText(ele, text) {
+    for (var i = 0; i < ele.length; i++) {
+        if (ele[i].childNodes[0].nodeValue === text) {
+            return i;
+        }
+    }
+    return -1;
+}
+

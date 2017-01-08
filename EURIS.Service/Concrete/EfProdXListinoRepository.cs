@@ -38,7 +38,7 @@ namespace EURIS.Service.Concrete
             return dbEntry;
         }
 
-        public void Save(Prodotti_x_listino pxl)
+        public void Update(Prodotti_x_listino pxl)
         {
             if (pxl.id == 0)
             {
@@ -66,7 +66,7 @@ namespace EURIS.Service.Concrete
         /// </summary>
         /// <param name="tofilter">Lista dei prodotti da filtrare</param>
         /// <param name="idlistino">id del listino da utilizzare come filtro</param>
-        /// <returns></returns>
+        /// <returns>Lista dei prodotti filtrata</returns>
         public List<Prodotto> FilterProducts(List<Prodotto> tofilter,int idlistino)
         {
             if (tofilter?.Count == 0)
@@ -83,21 +83,67 @@ namespace EURIS.Service.Concrete
                 List<Prodotti_x_listino> ppl = _context.Prodotti_x_listino.Where(p => p.id_listino == idlistino).ToList();
                 if (ppl.Count > 0)
                 {
-                    foreach (var el in ppl)
+                    //foreach (var el in ppl)
+                    //{
+                    //    var product = tofilter.FirstOrDefault(pr => pr.id == el.id_prodotto);
+                    //    // se lo trova in entrambi gli oggetti, lo toglie dalla lista da ritornare
+                    //    if (product != null)
+                    //    {
+                    //        result?.Remove(product);
+                    //    }
+                    //}
+
+                    // se lo trova in entrambi gli oggetti, lo toglie dalla lista da ritornare
+                    foreach (var product in ppl.Select(el => tofilter.FirstOrDefault(pr => pr.id == el.id_prodotto)).Where(product => product != null))
                     {
-                        Prodotto product = tofilter.FirstOrDefault(pr => pr.id == el.id_prodotto);
-                        // se lo trova in entrambi gli oggetti, lo toglie dalla lista da ritornare
-                        if (product != null)
-                        {
-                            result.Remove(product);
-                        }
+                        result?.Remove(product);
                     }
                 }
                 return result;
             }
         }
 
-
+        /// <summary>
+        /// per ogni prodotto_x_listino relativo all'idlistino passato in argomento,
+        /// verifica se il relativo prodotto e' presente nella lista di prodotti passata in argomento
+        /// SE NON E' PRESENTE lo inserisce dalla lista da ritornare.
+        /// Ritorna la lista degli prodotti presenti in prodotti_x_listino,
+        /// e non presenti nella lista passata in argomento 
+        /// e' l'inverso del metodo precedente.
+        /// </summary>
+        /// <param name="idlistino">id del listino da filtrare</param>
+        /// <param name="tofilter">Lista dei prodotti confrontare</param>
+        /// <returns>lista dei prodotti_x_listino filtrata</returns>
+        public List<Prodotti_x_listino> FilterPricelists(int idlistino,List<Prodotto> tofilter)
+        {
+            List<Prodotti_x_listino> result = new List<Prodotti_x_listino>();
+            if (idlistino == 0)
+            {
+                return result;
+            }
+            else if (tofilter.Count == 0)
+            {
+                return _context.Prodotti_x_listino.Where(l => l.id_listino == idlistino).ToList();
+            }
+            else
+            {
+                var ppl = _context.Prodotti_x_listino.Where(l => l.id_listino==idlistino).ToList();
+                if (ppl.Count > 0)
+                {
+                    //foreach (var el in ppl)
+                    //{
+                    //    // se non lo trova nella lista dei prodotti lo inserische nella lista filtrata
+                    //    if (tofilter.FirstOrDefault(p => p.id == el.Prodotto.id) == null)
+                    //    {
+                    //        result.Add(el);
+                    //    }
+                    //}
+                    // se non lo trova nella lista dei prodotti lo inserische nella lista filtrata
+                    result.AddRange(ppl.Where(el => tofilter.FirstOrDefault(p => p.id == el.Prodotto.id) == null));
+                }
+                return result;
+            }
+        }
 
         #endregion
 

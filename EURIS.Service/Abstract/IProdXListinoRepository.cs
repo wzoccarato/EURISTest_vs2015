@@ -10,8 +10,9 @@ namespace EURIS.Service.Abstract
     public interface IProdXListinoRepository
     {
         IQueryable<Prodotti_x_listino> ProdXListino { get; }
-        void Save(Prodotti_x_listino pxl);
+        void Update(Prodotti_x_listino pxl);
         Prodotti_x_listino Delete(int id);
         List<Prodotto> FilterProducts(List<Prodotto> tofilter, int idlistino);
+        List<Prodotti_x_listino> FilterPricelists(int idlistino, List<Prodotto> tofilter);
     }
 }

@@ -141,17 +141,27 @@ namespace EURISTest.Controllers
         }
 
         [HttpPost]
-        public ActionResult RequestUpdateListino(string idlistino,string jsonids)
+        public ActionResult RequestUpdateListino(string idlistino, string jsonids)
         {
-
             UnicodeEncoding uniEncoding = new UnicodeEncoding();
             MemoryStream stream = new MemoryStream(uniEncoding.GetBytes(jsonids));
             stream.Position = 0;
-            DataContractJsonSerializer JSC = new DataContractJsonSerializer(typeof(string[]));
-            string[] items = (string[])JSC.ReadObject(stream);
+            DataContractJsonSerializer JSC = new DataContractJsonSerializer(typeof(int[]));
+            int[] items = (int[])JSC.ReadObject(stream);
+            var idl = Convert.ToInt32(idlistino);
 
-            int idl = Convert.ToInt32(idlistino);
+            // in products la lista completa dei prodotti che devono costituire il nuovo listino
+            var products = items.Select(el => _ipr.Products.FirstOrDefault(p => p.id == el)).ToList();
 
+            // questa e' la lista degli elementi da cancellare dal listino originale, 
+            // cioè quelli che sono stati rimossi dall'utente
+            var todelete = _ipxlr.FilterPricelists(idl, products);
+            foreach (var el in todelete)
+            {
+                _ipxlr.Delete(el.id);
+            }
+
+            // esegue l'aggiornamento del nuovo listino
             foreach (var el in items)
             {
                 var idp = Convert.ToInt32(el);
@@ -162,16 +172,15 @@ namespace EURISTest.Controllers
                     ppl.id_listino = idl;
                     ppl.id_prodotto = idp;
                     ppl.insert_date = DateTime.Now;
-                    _ipxlr.Save(ppl);
+                    _ipxlr.Update(ppl);
                 }
                 else
                 {
-                    _ipxlr.Save(ppl);
+                    _ipxlr.Update(ppl);
                 }
             }
-
-
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home" );
         }
     }
 }
+

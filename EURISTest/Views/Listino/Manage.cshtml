@@ -18,15 +18,12 @@
     <div class="title1">Prodotti disponibili</div>
     <div>
         @{
+            @*rimuove dalla lista dei prodotti quelli gi' presenti all'interno del listino*@
             List<Prodotto> products = Model.Prodxlistinodata.FilterProducts(Model.Proddata.Products.ToList(), ViewBag.Listino);
         }
-        @*<div style="display: none">*@
-        @*@Html.ListBox("lbprodid", new MultiSelectList(Model.Proddata.Products.Select(g => g.id).ToList()))*@
-        <div> 
+        <div style="display: none">
             @Html.ListBox("lbprodid", new MultiSelectList(Model.Proddata.Products.Select(g => g.id).ToList()))
-            @*@Html.ListBox("lbprodid", new MultiSelectList(products.Select(g => g.id).ToList()))*@
         </div>
-        @*@Html.ListBox("lbproducts", new MultiSelectList(Model.Proddata.Products.Select(g => g.codice).ToList()), new {@class = "list"})*@
         @Html.ListBox("lbproducts", new MultiSelectList(products.Select(g => g.codice).ToList()), new {@class = "list"})
     </div>
 </div>
@@ -63,10 +60,10 @@
             @Html.ListBox("lbprodpl", new MultiSelectList(Model.Prodxlistinodata.ProdXListino.Where(pxl => pxl.id_listino == ll).Select(g => g.Prodotto.codice).ToList()), new {@class = "list"})
             @*@Html.ListBox("lbprodpl", new MultiSelectList(Model.Proddata.Products.Select(g => g.codice).ToList()), new {@class = "list"})*@
         </div>
-        @*@using (Html.BeginForm("Save"))
+        @*@using (Html.BeginForm("Update"))
         {*@
             <div style="padding:5px 0 0 0px; clear: left; width: 200px">
-                <input type="button" id="BtnSave" name="SavePricelist" value="Salva listino" style="width: 200px" />
+                <input type="button" id="BtnSave" name="UpdatePricelist" value="Salva listino" style="width: 200px" />
             </div>
         @*}*@
     </div>
