@@ -218,5 +218,6 @@ function indexMatchingText(ele, text) {
         }
     }
     return -1;
+
 }
 
