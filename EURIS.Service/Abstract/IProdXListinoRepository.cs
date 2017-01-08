@@ -14,6 +14,7 @@ namespace EURIS.Service.Abstract
         Prodotti_x_listino Delete(int id);
         List<Prodotto> FilterProducts(List<Prodotto> tofilter, int idlistino);
         List<Prodotti_x_listino> FilterPricelists(int idlistino, List<Prodotto> tofilter);
+        List<Prodotti_x_listino> GetPriceListProducts(int idlistino);
 
     }
 }

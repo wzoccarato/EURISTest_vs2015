@@ -54,14 +54,22 @@ namespace EURISTest.Controllers
             {
                 if (pl != null)
                 {
-                    var result = _iplr.DeletePricelist(pl.id);
-                    if (result != null)
+                    var pxl = _ipxlr.GetPriceListProducts(pl.id);
+                    if (pxl?.Count > 0)
                     {
-                        TempData["message"] = $"{result.codice} è stato rimosso dal database";
+                        TempData["message"] = $"Impossibile rimuovere {pl.codice}, perché contiene dei prodotti configurati al suo interno. Rimuovere prima i prodotti.";
                     }
                     else
                     {
-                        TempData["message"] = "Errore nella rimozione del prodotto dal database";
+                        var result = _iplr.DeletePricelist(pl.id);
+                        if (result != null)
+                        {
+                            TempData["message"] = $"{result.codice} è stato rimosso dal database";
+                        }
+                        else
+                        {
+                            TempData["message"] = "Errore nella rimozione del listino dal database";
+                        }
                     }
                     return RedirectToAction("Index");
                 }
@@ -78,11 +86,17 @@ namespace EURISTest.Controllers
             }
         }
 
-        public ViewResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-
-            Listino pricelist = id > 0 ? _iplr.Pricelists.FirstOrDefault(p => p.id == id) : new Listino();
-            return View(pricelist);
+            if (id != null)
+            {
+                Listino pricelist = id > 0 ? _iplr.Pricelists.FirstOrDefault(p => p.id == id) : new Listino();
+                return View(pricelist);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         [HttpPost]
@@ -92,18 +106,27 @@ namespace EURISTest.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    // innanzitutto verifica che i dati inseriti dall'utente non contrastino
-                    // con altri records gia' presenti nel database
-                    if (_iplr.CodeIsConsistent(pl))
+                    var pxl = _ipxlr.GetPriceListProducts(pl.id);
+                    if (pxl?.Count > 0)
                     {
-                        _iplr.SavePriceList(pl);
-                        TempData["message"] = $"{pl.codice} è stato salvato";
-                        return RedirectToAction("Index");
+                        TempData["message"] = $"Impossibile modificare {pl.codice}, perché contiene dei prodotti configurati al suo interno. Rimuovere prima i prodotti.";
+                        return View(pl);
                     }
                     else
                     {
-                        TempData["message"] = $"Esiste già un listino con il codice {pl.codice} a meno di minuscole/maiuscole. il listino non è stato salvato";
-                        return View(pl);
+                        // innanzitutto verifica che i dati inseriti dall'utente non contrastino
+                        // con altri records gia' presenti nel database
+                        if (_iplr.CodeIsConsistent(pl))
+                        {
+                            _iplr.SavePriceList(pl);
+                            TempData["message"] = $"{pl.codice} è stato salvato";
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            TempData["message"] = $"Esiste già un listino con il codice {pl.codice} a meno di minuscole/maiuscole. il listino non è stato salvato";
+                            return View(pl);
+                        }
                     }
                 }
                 else
@@ -141,7 +164,7 @@ namespace EURISTest.Controllers
         }
 
         [HttpPost]
-        public ActionResult RequestUpdateListino(string idlistino, string jsonids)
+        public JavaScriptResult RequestUpdateListino(string idlistino, string jsonids)
         {
             UnicodeEncoding uniEncoding = new UnicodeEncoding();
             MemoryStream stream = new MemoryStream(uniEncoding.GetBytes(jsonids));
@@ -161,27 +184,39 @@ namespace EURISTest.Controllers
                 _ipxlr.Delete(el.id);
             }
 
-            // esegue l'aggiornamento del nuovo listino
-            foreach (var el in items)
+            if (items.Count() > 0)
             {
-                var idp = Convert.ToInt32(el);
-                Prodotti_x_listino ppl = _ipxlr.ProdXListino.FirstOrDefault(p => p.id_listino == idl && p.id_prodotto == idp);
-                if (ppl == null)
+                // esegue l'aggiornamento del nuovo listino
+                foreach (var el in items)
                 {
-                    ppl = new Prodotti_x_listino();
-                    ppl.id_listino = idl;
-                    ppl.id_prodotto = idp;
-                    ppl.insert_date = DateTime.Now;
-                    _ipxlr.Update(ppl);
+                    var idp = Convert.ToInt32(el);
+                    Prodotti_x_listino ppl = _ipxlr.ProdXListino.FirstOrDefault(p => p.id_listino == idl && p.id_prodotto == idp);
+                    if (ppl == null)
+                    {
+                        ppl = new Prodotti_x_listino();
+                        ppl.id_listino = idl;
+                        ppl.id_prodotto = idp;
+                        ppl.insert_date = DateTime.Now;
+                        _ipxlr.Update(ppl);
+                    }
+                    else
+                    {
+                        _ipxlr.Update(ppl);
+                    }
                 }
-                else
-                {
-                    _ipxlr.Update(ppl);
-                }
-            }
-            return RedirectToAction("Index", "Home" );
 
+                var pl = _iplr.GetPricelist(idl);
+                TempData["Message"] = $"{pl.codice} è stato salvato";
+            }
+            else
+            {
+                var pl = _iplr.GetPricelist(idl);
+                TempData["Message"] = $"{pl.codice} non è stato salvato, in quanto non contiene prodotti";
+            }
+            
+
+            var script = string.Format("PageReload()");
+            return JavaScript(script);
         }
     }
 }
-

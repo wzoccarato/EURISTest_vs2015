@@ -12,15 +12,19 @@ namespace EURISTest.Controllers
 {
     public class ProdottoController : Controller
     {
+        private IPricelistRepository _iplr;
         private IProductRepository _ipr;
+        private IProdXListinoRepository _ipxlr;
 
-        public ProdottoController(IProductRepository ipr)
+        
+        public ProdottoController(IPricelistRepository iplr, IProductRepository ipr, IProdXListinoRepository ipxlr)
         {
+            _iplr = iplr;
             _ipr = ipr;
+            _ipxlr = ipxlr;
         }
 
-        
-        
+
         public ViewResult Index()
         {
             //ProdottoService prod = new ProdottoService();
@@ -45,15 +49,23 @@ namespace EURISTest.Controllers
             {
                 if (prodotto != null)
                 {
-                    var result =_ipr.DeleteProduct(prodotto.id);
-                    if (result != null)
+                    if (_ipxlr.ProdXListino.Any(pxl => pxl.id_prodotto == prodotto.id))
                     {
-                        TempData["message"] = $"{result.codice} è stato rimosso dal database";
+                        TempData["message"] = $"Impossibile rimuovere {prodotto.codice}, in quanto è presente in uno o più listini. Rimuovere prima il prodotto dal/i listini.";
                     }
                     else
                     {
-                        TempData["message"] = "Errore nella rimozione del prodotto dal database";
+                        var result = _ipr.DeleteProduct(prodotto.id);
+                        if (result != null)
+                        {
+                            TempData["message"] = $"{result.codice} è stato rimosso dal database";
+                        }
+                        else
+                        {
+                            TempData["message"] = "Errore nella rimozione del prodotto dal database";
+                        }
                     }
+
                     return RedirectToAction("Index");
                 }
                 else
@@ -65,11 +77,17 @@ namespace EURISTest.Controllers
             }
         }
 
-        public ViewResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            
-            Prodotto prod = id>0 ? _ipr.Products.FirstOrDefault(p => p.id == id) : new Prodotto();
-            return View(prod);
+            if (id != null)
+            {
+                Prodotto prod = id > 0 ? _ipr.Products.FirstOrDefault(p => p.id == id) : new Prodotto();
+                return View(prod);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         [HttpPost]

@@ -38,6 +38,8 @@
                     @using (Html.BeginForm("Cancella"))
                     {
                         @Html.Hidden("id", item.id)
+                        @Html.Hidden("codice", item.codice)
+                        @Html.Hidden("descrizione", item.descrizione)
                         <input type="submit" name="BtnDelete" value="Elimina" />
                     }
                 </td>

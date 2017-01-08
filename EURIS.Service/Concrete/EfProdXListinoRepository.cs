@@ -146,6 +146,16 @@ namespace EURIS.Service.Concrete
 
         }
 
+        /// <summary>
+        /// dato un id listino ritorna tutti i relativi prodotti configurati
+        /// </summary>
+        /// <param name="idlistino"></param>
+        /// <returns></returns>
+        public List<Prodotti_x_listino> GetPriceListProducts(int idlistino)
+        {
+            return _context.Prodotti_x_listino.Where(l => l.id_listino == idlistino).ToList();
+        }
+
         #endregion
 
         #region implementazione interfaccia IDispose 

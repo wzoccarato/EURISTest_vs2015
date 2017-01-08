@@ -33,11 +33,6 @@ $(function () {
 });
 
 
-// forza il reload della pagina
-function PageReload() {
-    window.location.href = window.location.href;
-}
-
 $("#BtnAdd").click(function() {
     // deve leggere gli elementi selezionati della listbox dei prodotti
     // e poi muoverli nella listbox contenente i prodotti per listino.
@@ -221,3 +216,7 @@ function indexMatchingText(ele, text) {
 
 }
 
+// forza il reload della pagina
+function PageReload() {
+    window.location.href = window.location.href;
+}
