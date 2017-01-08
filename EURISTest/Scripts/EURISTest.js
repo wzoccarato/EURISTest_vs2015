@@ -38,7 +38,7 @@ function PageReload() {
     window.location.href = window.location.href;
 }
 
-$("#Add").click(function() {
+$("#BtnAdd").click(function() {
     // deve leggere gli elementi selezionati della listbox dei rpodotti
     // e poi aggiungerli alla listbox contenente i prodotti per listino.
     var selcode = [];       // array contenente i codici prodotti selezionati dalla listbox
@@ -77,15 +77,78 @@ $("#Add").click(function() {
         var option1 = document.createElement("option");
         option.text = selcode[i];
         s3.add(option);
-        option1.Text = selid[i];
+        option1.text = selid[i];
         s2.add(option1);
         s1.remove(option.text);
         s.remove(option1.text);
     }
 });
 
-$("#Remove").click(function() {
+
+
+$("#BtnRemove").click(function() {
     //$('#RemoveProduct').CSS('color', "#00ff00");
     alert("quo");
 });
 
+
+$("#BtnSave").click(function () {
+    var path = window.location.pathname; 		// e' l'ultima parte del path, compreso il carattere "/" iniziale
+    var basepath = SetupBaseRoute(path);
+    if (basepath.indexOf("Listino") != -1) {
+        // soltanto se e' listino,
+        var newpath = basepath + "/RequestUpdateListino";
+
+        var idl = document.getElementById("idlistino").innerHTML;
+
+        var s2 = document.getElementById("lbprodplid");     // listbox degli id relativi ai prodotti contenuti nel listino (hidden) 
+        var idtosend = [];
+        var numel = s2.options.length;
+        //$.each(s.option()).push
+        //{
+            
+        //}
+        for (var i = 0; i < numel; i++) {
+            idtosend.push(s2.options[i].text);
+        }
+
+        // serializza l'oggetto
+        var jsonlist = JSON.stringify(idtosend);
+
+        $.post(newpath, { idlistino: idl, jsonids: jsonlist })};
+        //$.post(newpath);
+
+        //$.post(newpath, null, UpdateKibsControls, "json");
+});
+
+
+
+// Ritorna soltanto l'url del controller. Utilizzato per costruire una nuova
+// chiamata a una action dello stesso controller, via javascript
+function SetupBaseRoute(partialpath) {
+    try {
+        var result = "";
+        var index;
+        if (partialpath == "/") {
+            result = "../../Home";
+        }
+        else {
+            while (1) {
+                if ((index = partialpath.lastIndexOf("/")) == 0) {
+                    result = "../.." + partialpath;
+                    break;
+                }
+                else if (index > 0) {
+                    partialpath = partialpath.substring(0, index);
+                }
+                else {
+                    alert("errore: partialpath=" + partialpath);
+                    break;
+                }
+            }
+        }
+        return result;
+    } catch (e) {
+        alert(e.message);
+    }
+}

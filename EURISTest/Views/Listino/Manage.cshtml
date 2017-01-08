@@ -9,6 +9,9 @@
 
 <h2>@ViewBag.Title @Model.Pricelistdata.GetCodice(ViewBag.Listino)</h2>
 
+<div id="idlistino" style="display: none">@ViewBag.Listino</div>
+
+
 <!-- Listbox relativo ai prodotti -->
 <div style="text-align: right; float: left; width: 45%; margin-top: 50px">
     <div class="title1">Prodotti disponibili</div>
@@ -25,13 +28,13 @@
     <div>
         @*@using (Html.BeginForm("Add"))
         {*@
-            <input type="button" id="Add" name="AddProduct" value="&gt;" class="button1"/>
+            <input type="button" id="BtnAdd" name="AddProduct" value="&gt;" class="button1"/>
         @*}*@
     </div>
     <div>
         @*@using (Html.BeginForm("Remove"))
         {*@
-            <input type="button" id="Remove" name="RemoveProduct" value="&lt;" class="button1" />
+            <input type="button" id="BtnRemove" name="RemoveProduct" value="&lt;" class="button1" />
         @*}*@
     </div>
 </div>
@@ -49,15 +52,14 @@
         </div >
         <div>
             @*//int ll = ViewBag.Listino;*@
-            @Html.ListBox("lbprodpl", new MultiSelectList(Model.Prodxlistinodata.ProdXListino.Where(pxl => pxl.id_listino == ll).Select(g => g.Prodotto.codice).ToList()), new {@class = "list-values"})
+            @Html.ListBox("lbprodpl", new MultiSelectList(Model.Prodxlistinodata.ProdXListino.Where(pxl => pxl.id_listino == ll).Select(g => g.Prodotto.codice).ToList()), new {@class = "list"})
             @*@Html.ListBox("lbprodpl", new MultiSelectList(Model.Proddata.Products.Select(g => g.codice).ToList()), new {@class = "list"})*@
         </div>
+        @*@using (Html.BeginForm("Save"))
+        {*@
+            <div style="padding:5px 0 0 0px; clear: left; width: 200px">
+                <input type="button" id="BtnSave" name="SavePricelist" value="Salva listino" style="width: 200px" />
+            </div>
+        @*}*@
     </div>
 </div>
-
-@using (Html.BeginForm("Save"))
-{
-    <div style="float: left; margin-top: 150px; width: 200px">
-        <input type="submit" id="BtnSave" name="SavePricelist" value="Salva" />
-    </div>
-}

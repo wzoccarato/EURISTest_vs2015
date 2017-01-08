@@ -1,7 +1,10 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Json;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using EURIS.Service.Abstract;
@@ -119,15 +122,62 @@ namespace EURISTest.Controllers
             }
         }
 
-        public ActionResult Manage(int id)
+        public ActionResult Manage(int? id)
         {
-            ViewBag.Listino = id;
-            return View(new CommonViewModel
+            if (id != null)
             {
-                Pricelistdata = _iplr,
-                Proddata = _ipr,
-                Prodxlistinodata = _ipxlr
-            });
+                ViewBag.Listino = id;
+                return View(new CommonViewModel
+                {
+                    Pricelistdata = _iplr,
+                    Proddata = _ipr,
+                    Prodxlistinodata = _ipxlr
+                });
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult RequestUpdateListino(string idlistino,string jsonids)
+        {
+
+            var ppp = ViewBag.listino;
+
+            UnicodeEncoding uniEncoding = new UnicodeEncoding();
+            MemoryStream stream = new MemoryStream(uniEncoding.GetBytes(jsonids));
+            stream.Position = 0;
+            DataContractJsonSerializer JSC = new DataContractJsonSerializer(typeof(string[]));
+            string[] items = (string[])JSC.ReadObject(stream);
+
+            int idl = Convert.ToInt32(idlistino);
+
+            foreach (var el in items)
+            {
+                var idp = Convert.ToInt32(el);
+                Prodotti_x_listino ppl = _ipxlr.ProdXListino.FirstOrDefault(p => p.id_listino == idl && p.id_prodotto == idp);
+                if (ppl == null)
+                {
+                    ppl = new Prodotti_x_listino();
+                    ppl.id_listino = idl;
+                    ppl.id_prodotto = idp;
+                    ppl.insert_date = DateTime.Now;
+                    _ipxlr.Save(ppl);
+                }
+                //Prodotti_x_listino ppl = new Prodotti_x_listino();
+                //ppl.Listino = id;
+                //ppl.
+                //var pricelist = _ipxlr. Pricelists.First(p => p.id == id);
+                //_iplr.SavePriceList();
+            }
+
+            //_iplr.Pricelists.Where(p => p.id==id).
+
+            //List<Prodotti_x_listino> pxl = _ipxlr.ProdXListino.ToList();
+            return RedirectToAction("Index");
+            
         }
     }
 }

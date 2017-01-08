@@ -34,6 +34,25 @@ namespace EURIS.Service.Concrete
 
         public void Save(Prodotti_x_listino pxl)
         {
+            if (pxl.id == 0)
+            {
+                _context.Prodotti_x_listino.Add(pxl);
+            }
+            else
+            {
+                Prodotti_x_listino dbEntry = _context.Prodotti_x_listino.Find(pxl.id);
+                if (dbEntry != null)
+                {
+                    dbEntry.id_listino = pxl.id_listino;
+                    dbEntry.id_prodotto = pxl.id_prodotto;
+                    dbEntry.notes = pxl.notes;
+                    dbEntry.valid_until = pxl.valid_until;
+                    dbEntry.insert_date = pxl.insert_date;
+                    dbEntry.valid_from = pxl.valid_from;
+                } 
+            }
+            _context.SaveChanges();
+
             throw new NotImplementedException();
         }
 
