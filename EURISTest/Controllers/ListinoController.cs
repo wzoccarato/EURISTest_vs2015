@@ -144,8 +144,6 @@ namespace EURISTest.Controllers
         public ActionResult RequestUpdateListino(string idlistino,string jsonids)
         {
 
-            var ppp = ViewBag.listino;
-
             UnicodeEncoding uniEncoding = new UnicodeEncoding();
             MemoryStream stream = new MemoryStream(uniEncoding.GetBytes(jsonids));
             stream.Position = 0;
@@ -166,18 +164,14 @@ namespace EURISTest.Controllers
                     ppl.insert_date = DateTime.Now;
                     _ipxlr.Save(ppl);
                 }
-                //Prodotti_x_listino ppl = new Prodotti_x_listino();
-                //ppl.Listino = id;
-                //ppl.
-                //var pricelist = _ipxlr. Pricelists.First(p => p.id == id);
-                //_iplr.SavePriceList();
+                else
+                {
+                    _ipxlr.Save(ppl);
+                }
             }
 
-            //_iplr.Pricelists.Where(p => p.id==id).
 
-            //List<Prodotti_x_listino> pxl = _ipxlr.ProdXListino.ToList();
             return RedirectToAction("Index");
-            
         }
     }
 }

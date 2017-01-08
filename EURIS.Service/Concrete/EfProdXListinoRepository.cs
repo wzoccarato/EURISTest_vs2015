@@ -29,7 +29,13 @@ namespace EURIS.Service.Concrete
 
         public Prodotti_x_listino Delete(int id)
         {
-            throw new NotImplementedException();
+            Prodotti_x_listino dbEntry = _context.Prodotti_x_listino.Find(id);
+            if (dbEntry != null)
+            {
+                _context.Prodotti_x_listino.Remove(dbEntry);
+                _context.SaveChanges();
+            }
+            return dbEntry;
         }
 
         public void Save(Prodotti_x_listino pxl)
@@ -52,9 +58,46 @@ namespace EURIS.Service.Concrete
                 } 
             }
             _context.SaveChanges();
-
-            throw new NotImplementedException();
         }
+
+        /// <summary>
+        /// ritorna la lista dei prodotti passati in argomento, dalla quale sono stati filtrati tutti
+        /// i prodotti contenuti in idlistino
+        /// </summary>
+        /// <param name="tofilter">Lista dei prodotti da filtrare</param>
+        /// <param name="idlistino">id del listino da utilizzare come filtro</param>
+        /// <returns></returns>
+        public List<Prodotto> FilterProducts(List<Prodotto> tofilter,int idlistino)
+        {
+            if (tofilter?.Count == 0)
+            {
+                return new List<Prodotto>();
+            }
+            else if (idlistino == 0)
+            {
+                return tofilter;
+            }
+            else
+            {
+                List<Prodotto> result = tofilter;
+                List<Prodotti_x_listino> ppl = _context.Prodotti_x_listino.Where(p => p.id_listino == idlistino).ToList();
+                if (ppl.Count > 0)
+                {
+                    foreach (var el in ppl)
+                    {
+                        Prodotto product = tofilter.FirstOrDefault(pr => pr.id == el.id_prodotto);
+                        // se lo trova in entrambi gli oggetti, lo toglie dalla lista da ritornare
+                        if (product != null)
+                        {
+                            result.Remove(product);
+                        }
+                    }
+                }
+                return result;
+            }
+        }
+
+
 
         #endregion
 
