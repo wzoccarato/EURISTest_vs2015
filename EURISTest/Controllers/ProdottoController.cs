@@ -27,6 +27,11 @@ namespace EURISTest.Controllers
 
         public ViewResult Index()
         {
+            //ProdottoService prod = new ProdottoService();
+            //List<Prodotto> prodotti = prod.GetProdotti();
+
+            //ViewBag.Prodotti = prodotti;
+
             return View(new CommonViewModel
             {
                 Proddata = _ipr

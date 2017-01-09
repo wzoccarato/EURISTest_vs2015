@@ -26,6 +26,7 @@ addLoadEvent(function () {
 // chiamata al completamento del caricamento della pagina.
 $(function () {
     try {
+        //alert("qua");
     } catch (e) {
         alert(e.message);
     }
@@ -39,8 +40,21 @@ $("#BtnAdd").click(function() {
     var selid = [];         // array contnente gli id prodotti relativi ai codici selezionati
     var s = document.getElementById("lbprodid");        // listbox degli id
     var s1 = document.getElementById("lbproducts");     // listbox dei codici
+
+    //var s = $("#lbprodid");        // listbox degli id
+    ///var s1 =$("#lbproducts");     // listbox dei codici
+
     var s2 = document.getElementById("lbprodplid");     // listbox degli id relativi ai prodotti contenuti nel listino (hidden) 
     var s3 = document.getElementById("lbprodpl");       // listbox dei codici relativi ai prodotti del listino
+
+
+    //var numel = $("#lbproducts option").length;
+    //for (var i = 0; i < numel; i++) {
+    //    if ($("#lbproducts option")[i].selected) {
+    //        selcode.push(s1.options[i].text);
+    //        //selid.push(s.options[i].text);
+    //    }
+    //}
 
     // in selcode e in selid soltanto i codici e i relativi id selezionati
     var numel = s1.options.length;
@@ -83,8 +97,21 @@ $("#BtnRemove").click(function () {
     var selid = [];         // array contnente gli id prodotti relativi ai codici selezionati
     var s = document.getElementById("lbprodid");        // listbox degli id
     var s1 = document.getElementById("lbproducts");     // listbox dei codici
+
+    //var s = $("#lbprodid");        // listbox degli id
+    ///var s1 =$("#lbproducts");     // listbox dei codici
+
     var s2 = document.getElementById("lbprodplid");     // listbox degli id relativi ai prodotti contenuti nel listino (hidden) 
     var s3 = document.getElementById("lbprodpl");       // listbox dei codici relativi ai prodotti del listino
+
+
+    //var numel = $("#lbproducts option").length;
+    //for (var i = 0; i < numel; i++) {
+    //    if ($("#lbproducts option")[i].selected) {
+    //        selcode.push(s1.options[i].text);
+    //        //selid.push(s.options[i].text);
+    //    }
+    //}
 
     // in selcode e in selid soltanto i codici e i relativi id selezionati
     var numel = s3.options.length;
@@ -129,7 +156,10 @@ $("#BtnSave").click(function () {
         var s2 = document.getElementById("lbprodplid");     // listbox degli id relativi ai prodotti contenuti nel listino (hidden) 
         var idtosend = [];
         var numel = s2.options.length;
-       
+        //$.each(s.option()).push
+        //{
+            
+        //}
         for (var i = 0; i < numel; i++) {
             idtosend.push(s2.options[i].text);
         }
@@ -138,6 +168,9 @@ $("#BtnSave").click(function () {
         var jsonlist = JSON.stringify(idtosend);
 
         $.post(newpath, { idlistino: idl, jsonids: jsonlist })};
+        //$.post(newpath);
+
+        //$.post(newpath, null, UpdateKibsControls, "json");
 });
 
 
