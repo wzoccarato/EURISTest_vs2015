@@ -32,11 +32,6 @@ namespace EURISTest.Controllers
 
         public ActionResult Index()
         {
-            //ProdottoService prod = new ProdottoService();
-            //List<Prodotto> prodotti = prod.GetProdotti();
-
-            //ViewBag.Prodotti = prodotti;
-
             return View(new CommonViewModel
             {
                 Pricelistdata = _iplr
