@@ -54,6 +54,7 @@
     <Compile Include="Listino.cs">
       <DependentUpon>LocalDbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ListinoMetaData.cs" />
     <Compile Include="LocalDbModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -75,6 +76,7 @@
     <Compile Include="Prodotti_x_listino.cs">
       <DependentUpon>LocalDbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ProdottoMetaData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
