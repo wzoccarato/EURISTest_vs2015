@@ -38,12 +38,15 @@ $("#BtnAdd").click(function() {
     // e poi muoverli nella listbox contenente i prodotti per listino.
     var selcode = [];       // array contenente i codici prodotti selezionati dalla listbox
     var selid = [];         // array contnente gli id prodotti relativi ai codici selezionati
-    var s = document.getElementById("lbprodid");        // listbox degli id
-    var s1 = document.getElementById("lbproducts");     // listbox dei codici
+    //var s = document.getElementById("lbprodid");        // listbox degli id
+    //var s1 = document.getElementById("lbproducts");     // listbox dei codici
+    //var s2 = document.getElementById("lbprodplid");     // listbox degli id relativi ai prodotti contenuti nel listino (hidden) 
+    //var s3 = document.getElementById("lbprodpl");       // listbox dei codici relativi ai prodotti del listino
 
-    
-    var s2 = document.getElementById("lbprodplid");     // listbox degli id relativi ai prodotti contenuti nel listino (hidden) 
-    var s3 = document.getElementById("lbprodpl");       // listbox dei codici relativi ai prodotti del listino
+    var s = $("#lbprodid")[0];         // listbox degli id
+    var s1 = $("#lbproducts")[0];      // listbox dei codici
+    var s2 = $("#lbprodplid")[0];      // listbox degli id relativi ai prodotti contenuti nel listino (hidden) 
+    var s3 = $("#lbprodpl")[0];        // listbox dei codici relativi ai prodotti del listino
 
 
     // in selcode e in selid soltanto i codici e i relativi id selezionati
@@ -55,6 +58,13 @@ $("#BtnAdd").click(function() {
             selid.push(s.options[i].text);
         }
     }
+    // traduzione -> jquery
+    //$("#lbproducts > option").each(function (index) {
+    //    if (this.selected) {
+    //        selcode.push(this.text);
+    //        selid.push(s.options[index].text);
+    //    }
+    //});
 
     // aggiunge i prodotti al listino, toglie dalla lista dei prodotti disponibili
     for (i = 0; i < selid.length; i++) {
@@ -68,7 +78,7 @@ $("#BtnAdd").click(function() {
         s2.add(option1);
 
         // rinuove gli elementi dai tag sorgente
-        if((index = indexMatchingText(s1, option.text))>=0)
+        if ((index = indexMatchingText(s1, option.text)) >= 0)
             s1.remove(index);
         if((index = indexMatchingText(s, option1.text))>=0) {
             s.remove(index);
@@ -85,13 +95,15 @@ $("#BtnRemove").click(function () {
     // e poi muoverli nella listbox contenente i prodotti per listino.
     var selcode = [];       // array contenente i codici prodotti selezionati dalla listbox
     var selid = [];         // array contnente gli id prodotti relativi ai codici selezionati
-    var s = document.getElementById("lbprodid");        // listbox degli id
-    var s1 = document.getElementById("lbproducts");     // listbox dei codici
+    //var s = document.getElementById("lbprodid");        // listbox degli id
+    //var s1 = document.getElementById("lbproducts");     // listbox dei codici
+    //var s2 = document.getElementById("lbprodplid");     // listbox degli id relativi ai prodotti contenuti nel listino (hidden) 
+    //var s3 = document.getElementById("lbprodpl");       // listbox dei codici relativi ai prodotti del listino
 
-
-    var s2 = document.getElementById("lbprodplid");     // listbox degli id relativi ai prodotti contenuti nel listino (hidden) 
-    var s3 = document.getElementById("lbprodpl");       // listbox dei codici relativi ai prodotti del listino
-
+    var s = $("#lbprodid")[0];        // listbox degli id
+    var s1 = $("#lbproducts")[0];     // listbox dei codici
+    var s2 = $("#lbprodplid")[0];     // listbox degli id relativi ai prodotti contenuti nel listino (hidden) 
+    var s3 = $("#lbprodpl")[0];       // listbox dei codici relativi ai prodotti del listino
 
     // in selcode e in selid soltanto i codici e i relativi id selezionati
     var numel = s3.options.length;
