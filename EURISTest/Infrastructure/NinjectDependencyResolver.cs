@@ -28,7 +28,7 @@ namespace EURISTest.Infrastructure
 
         #endregion
 
-        #region implementazione interfacci IDependencyResolver
+        #region implementazione interfaccia IDependencyResolver
         public object GetService(Type serviceType)
         {
             return _kernel.TryGet(serviceType);
