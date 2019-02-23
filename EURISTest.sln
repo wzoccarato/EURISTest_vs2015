@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EURISTest", "EURISTest\EURISTest.csproj", "{47202F7D-6E7D-4BFC-A25D-ABDE143BFD82}"
 EndProject
@@ -31,12 +31,16 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9BC771A8-3E8B-4FBC-9B7B-CCA3C7DC103F}
+	EndGlobalSection
 	GlobalSection(AutomaticVersions) = postSolution
-		UpdateAssemblyVersion = True
-		UpdateAssemblyFileVersion = True
-		UpdateAssemblyInfoVersion = True
-		AssemblyVersionSettings = IncrementOnDemand.IncrementOnDemand.Increment.DateStamp
-		AssemblyFileVersionSettings = IncrementOnDemand.IncrementOnDemand.Increment.DateStamp
-		AssemblyInfoVersionSettings = IncrementOnDemand.IncrementOnDemand.Increment.DateStamp
+		UpdateAssemblyVersion = False
+		UpdateAssemblyFileVersion = False
+		UpdateAssemblyInfoVersion = False
+		ShouldCreateLogs = True
+		UpdatePackageVersion = False
+		AssemblyInfoVersionType = SettingsVersion
+		InheritWinAppVersionFrom = None
 	EndGlobalSection
 EndGlobal
